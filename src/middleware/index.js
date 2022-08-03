@@ -5,10 +5,10 @@ const User = require("../user/model")
 exports.hashPass = async (req, res, next) => {
     try {
         req.body.password = await bcrypt.hash(req.body.password, 9)
-        next()
+        next() //! currently an issue with this line
     } catch (error) {
         console.log(error)
-        res.send({err: error})
+        res.status(406).send({msg: "The server has failed to create a new user"})
     }
 }
 

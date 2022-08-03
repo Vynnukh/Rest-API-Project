@@ -8,7 +8,7 @@ exports.createUser = async (req, res) => {
         res.send({msg: "A new user has been created"})
     } catch (error) {
         console.log(error) 
-        res.status(402).send({err: error})
+        res.status(405).send({err: error})
         
     }
 }
@@ -36,9 +36,10 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.updateUser = async (filterTitle, newInformation) => {
+exports.updateUser = async (req, res) => {
     try {
-        return User.findOneAndUpdate(filterTitle, newInformation)
+        res.send({msg: "A user has been updated"})
+        await User.findOneAndUpdate(req.body, newInformation)
     } catch (error) {
         console.log(error)
     }
@@ -46,8 +47,8 @@ exports.updateUser = async (filterTitle, newInformation) => {
 
 exports.deleteOne = async (req, res) => {
     try {
+        await User.findOneAndDelete(req.body)
         res.send({msg: "A user has been deleted"})
-        return User.findOneAndDelete(req.body)
     } catch (error) {
         console.log(error)
         res.status(405).send({err: error})
