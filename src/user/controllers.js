@@ -4,6 +4,7 @@ const User = require("./model.js")
 exports.createUser = async (req, res) => {
     try {
         const newUser = await User.create(req.body)
+        const token = await jwt.sign({_id: newUser._id}, process.env.SECRET)
         console.log(newUser)
         res.send({msg: "A new user has been created"})
     } catch (error) {
@@ -38,7 +39,7 @@ exports.login = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
     try {
-        res.send({msg: "A user has been updated"})
+        res.send({msg: "A user password has been updated"})
         await User.findOneAndUpdate(req.body, newInformation)
     } catch (error) {
         console.log(error)
@@ -48,7 +49,7 @@ exports.updatePassword = async (req, res) => {
 
 exports.deleteOne = async (req, res) => {
     try {
-        await User.findOneAndDelete(req.body)
+        await User.findOneAndDelete(req.body.username)
         res.send({msg: "A user has been deleted"})
     } catch (error) {
         console.log(error)

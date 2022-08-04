@@ -7,7 +7,7 @@ userRouter.post("/user", hashPass, createUser)
 userRouter.post("/login", comparePass, login)
 userRouter.get("/user", readAllUsers)
 userRouter.get("/login", tokenCheck, login)
-userRouter.patch("/update",updatePassword)
-userRouter.delete("/delete", deleteOne)
+userRouter.patch("/user",updatePassword)
+userRouter.delete("/user", deleteOne)
 
 module.exports = userRouter
