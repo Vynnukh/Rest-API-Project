@@ -39,8 +39,9 @@ exports.login = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
     try {
+        await User.findOne({user: req.body.username})
+        await User.findOneAndUpdate({$set: {password: req.body.password}})
         res.send({msg: "A user password has been updated"})
-        await User.findOneAndUpdate(req.body, newInformation)
     } catch (error) {
         console.log(error)
         res.status(409).send({msg: "The user update function has failed"})
